@@ -13,4 +13,4 @@ Short version: nothing leaves your browser.
   script URLs the page already loaded. It is off by default.
 - No remote code. Everything ships in the extension package.
 
-Contact: 254jaymz@gmail.com
+Contact: https://github.com/endafk/passive-secret-scanner/issues
