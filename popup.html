@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Passive Secret Scanner</title>
+    <link rel="stylesheet" href="ui.css" />
+  </head>
+  <body class="popup">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/icon32.png" alt="" width="20" height="20" />
+        <h1>Passive Secret Scanner</h1>
+      </div>
+      <button id="options" class="icon-btn" title="Settings" aria-label="Settings">&#9881;</button>
+    </header>
+
+    <div class="stats" id="stats"></div>
+    <div id="banner-slot"></div>
+
+    <div class="toolbar">
+      <label class="toggle"><input type="checkbox" id="thisSite" checked /> This site</label>
+      <select id="severity" aria-label="Severity filter">
+        <option value="all">All</option>
+        <option value="medium">Medium+</option>
+        <option value="high">High+</option>
+        <option value="critical">Critical</option>
+      </select>
+      <input id="search" type="search" placeholder="Filter findings…" aria-label="Filter findings" />
+    </div>
+
+    <main id="list" class="list" aria-live="polite"></main>
+
+    <footer class="footer">
+      <button id="export" class="btn">Export JSON</button>
+      <button id="clear" class="btn danger">Clear all</button>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

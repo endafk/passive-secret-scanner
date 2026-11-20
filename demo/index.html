@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Secret Scanner Demo</title>
+    <style>
+      body { font: 15px/1.6 system-ui, sans-serif; max-width: 720px; margin: 48px auto; padding: 0 20px; }
+      code { background: #eef1f7; padding: 1px 5px; border-radius: 4px; }
+      .note { color: #667085; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <h1>Secret Scanner Demo</h1>
+    <p class="note">
+      All values below are fake and generated for this test page. Open the
+      extension popup after loading this page.
+    </p>
+
+    <div
+      id="app"
+      data-api-key="Zx8Qw2Er5Ty9Ui3Op7As"
+      data-safe-example="YOUR_API_KEY_HERE_1234567890"
+    ></div>
+
+    <script>
+      // Fake credentials for scan testing.
+      const config = {
+        awsAccessKeyId: "AKIAZ7Q2XJ5V4R3T2W1Y",
+        awsSecretAccessKey: "abcdefghijklmnopqrstuvwxyz0123456789ABCD",
+        stripeSecret: "sk_live_51H8xQ2eZvKYlo2CxAbCdEfGh",
+        database: "postgres://admin:hunter2secret@db.demo.internal:5432/app",
+        placeholder: "YOUR_API_KEY_HERE_1234567890",
+      };
+      document.getElementById("app").textContent = "Demo app loaded.";
+      console.log(config.database);
+    </script>
+
+    <script src="app.js"></script>
+  </body>
+</html>

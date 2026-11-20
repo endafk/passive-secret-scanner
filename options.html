@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Passive Secret Scanner: Settings</title>
+    <link rel="stylesheet" href="ui.css" />
+  </head>
+  <body class="options">
+    <div class="wrap">
+      <header>
+        <img src="icons/icon48.png" alt="" width="32" height="32" />
+        <div>
+          <h1>Passive Secret Scanner</h1>
+          <p>Local-only scanning of page source and JavaScript.</p>
+        </div>
+      </header>
+
+      <form id="settings-form" class="section">
+        <h2>Scanning</h2>
+        <p class="sub">What the extension is allowed to inspect.</p>
+
+        <label class="field">
+          <input type="checkbox" id="enabled" />
+          <span>
+            <span class="label">Enable scanning</span>
+            <span class="hint">Master switch. When off, content scripts stay idle.</span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanHtml" />
+          <span>
+            <span class="label">Scan page source</span>
+            <span class="hint">The served HTML, including inline scripts and data attributes.</span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanExternalJs" />
+          <span>
+            <span class="label">Scan external JavaScript</span>
+            <span class="hint">
+              Re-requests the scripts the page already loaded, once per URL, without cookies.
+              Cache hits make this cheap.
+            </span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanSourceMaps" />
+          <span>
+            <span class="label">Scan source maps</span>
+            <span class="hint">Follows <code>//# sourceMappingURL=</code>, including inline data URI maps. Often richer than the bundles.</span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanLazyChunks" />
+          <span>
+            <span class="label">Discover lazy chunks</span>
+            <span class="hint">
+              Reads the webpack chunk map and fetches route bundles and their maps even
+              when the page never loaded them. This makes extra asset requests.
+            </span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanApiResponses" />
+          <span>
+            <span class="label">Scan API responses</span>
+            <span class="hint">
+              Observes JSON/text bodies the page already fetched (fetch + XHR), with no extra
+              requests. One API token in a config endpoint is often the whole finding.
+            </span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="scanStorage" />
+          <span>
+            <span class="label">Scan storage and app data</span>
+            <span class="hint">
+              Checks localStorage, sessionStorage, non-HttpOnly cookies, and IndexedDB
+              values on the current origin.
+            </span>
+          </span>
+        </label>
+
+        <label class="field">
+          <input type="checkbox" id="fetchWithCredentials" />
+          <span>
+            <span class="label">Send cookies when re-fetching JS (advanced)</span>
+            <span class="hint">
+              By default re-fetches are anonymous, so auth-gated bundles return 401. Enabling
+              this sends your session cookies for those same asset URLs. Closer to what the
+              page loaded, but no longer anonymous in the target's logs.
+            </span>
+          </span>
+        </label>
+      </form>
+
+      <section class="section">
+        <h2>Notifications</h2>
+        <p class="sub">Desktop alert when a new finding appears on a host.</p>
+        <label class="field">
+          <input type="checkbox" id="notifications" />
+          <span>
+            <span class="label">Show notifications</span>
+            <span class="hint">Throttled to one per host every five minutes.</span>
+          </span>
+        </label>
+
+        <label class="field">
+          <span>
+            <span class="label">Minimum severity to notify</span>
+            <span class="hint">Lower-severity findings still appear in the log.</span>
+          </span>
+          <select id="notifyMinSeverity">
+            <option value="low">Low and above</option>
+            <option value="medium">Medium and above</option>
+            <option value="high">High and above</option>
+            <option value="critical">Critical only</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="section">
+        <h2>Scope</h2>
+        <p class="sub">Useful on engagements: only scan hosts you are authorized to test.</p>
+
+        <label class="field">
+          <input type="checkbox" id="onlyInScope" />
+          <span>
+            <span class="label">Only scan in-scope hosts</span>
+            <span class="hint">Drops everything outside the list below.</span>
+          </span>
+        </label>
+
+        <div class="field" style="flex-direction: column; align-items: stretch">
+          <span class="label">Scope list</span>
+          <span class="hint" style="margin-bottom: 6px">
+            One host per line. <code>example.com</code> also matches subdomains;
+            <code>*.example.com</code> matches subdomains only. Leave empty to scan everything.
+          </span>
+          <textarea id="scope" spellcheck="false" placeholder="example.com&#10;*.client-site.net"></textarea>
+        </div>
+
+        <p class="warn" style="margin-top: 10px">
+          Only scan systems you have permission to test. Findings stored by this extension
+          contain unredacted secrets. Treat them as engagement material.
+        </p>
+      </section>
+
+      <div class="actions-row">
+        <button type="submit" class="btn primary" form="settings-form">Save settings</button>
+        <span id="status" class="status" role="status"></span>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

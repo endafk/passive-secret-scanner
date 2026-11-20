@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Passive Secret Scanner",
+  "version": "0.4.0",
+  "description": "Passively scans page source, JavaScript, source maps, API responses, storage, and cookies for exposed secrets, credentials, and API keys. Local-only, no telemetry.",
+  "minimum_chrome_version": "111",
+  "permissions": ["storage", "notifications", "activeTab", "webNavigation"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["capture.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["lib/entropy.js", "lib/rules.js", "lib/scan.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Passive Secret Scanner",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
