@@ -1,6 +1,6 @@
 # Passive Secret Scanner
 
-I built this for my own pentests. It watches pages as you browse and logs
+Watches pages as you browse and logs
 secrets that leak into them: HTML, JavaScript, source maps, API responses,
 storage, cookies, and the page URL.
 
